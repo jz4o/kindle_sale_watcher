@@ -16,11 +16,16 @@ kindle_sale_watcher is a bot that posts kindle sale items on slack.
 ### push source code to google apps script project
 
 1. `git clone ...`
-1. `npm install`
+1. `docker-compose build`
+1. `docker-compose up -d`
 1. `cp -p .clasp.json.example .clasp.json`
 1. `vim .clasp.json`
-1. `npx clasp login`
-1. `npx clasp push`
+1. `docker-compose exec clasp npx clasp login --no-localhost`
+    * if can't login
+      1. `docker-compose exec clasp apk add curl`
+      1. `docker-compose exec clasp npx clasp login`
+      1. `docker-compose exec clasp curl localhost:XXXXX` from another terminal after view `This site cannot be accessed` page
+1. `docker-compose exec clasp npx clasp push`
 
 ### create incomingwebhooks on slack
 
