@@ -27,10 +27,19 @@ function watchDaily() {
 }
 
 function watchMonthly() {
+  const response = UrlFetchApp.fetch('https://www.amazon.co.jp/hko/deals/');
+  const responseContentText = response.getContentText();
+  const monthlyRegExp = /<a.*?aria-label="もっと見る\sKindle月替わりセール".*?href="(.*?)".*?>/;
+  if (!monthlyRegExp.test(responseContentText)) {
+    return;
+  }
+  const [_, monthlyHref] = responseContentText.match(monthlyRegExp);
+  const monthlyUrl = `https://www.amazon.co.jp${monthlyHref.replace(/&amp;/g, '&')}`;
+
   const items = [];
   let page = 1;
   while (true) {
-    const response = UrlFetchApp.fetch(`https://www.amazon.co.jp/kindle-dbs/browse/ref=dbs_b_r_brws_zeitgeist_pg?sourceType=zeitgeist&page=${page}`);
+    const response = UrlFetchApp.fetch(`${monthlyUrl}&page=${page}`);
     const responseContentText = response.getContentText();
 
     const loopItems = getItems(responseContentText);
