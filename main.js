@@ -82,6 +82,9 @@ function postMonthlyItems() {
     .map(row => new Item(...row));
   postItems(items);
 
+  // avoid delete all rows
+  monthlySheet.appendRow(Array(Item.getRowSize()));
+
   monthlySheet.deleteRows(1, postSize);
 }
 
