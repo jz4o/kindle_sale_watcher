@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/jz4o/kindle_sale_watcher#readme",
   "dependencies": {
-    "@google/clasp": "3.2.0"
+    "@google/clasp": "3.3.0"
   }
 }
